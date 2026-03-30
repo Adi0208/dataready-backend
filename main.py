@@ -6,6 +6,7 @@ import anthropic
 import re
 import io
 import json
+import os
 from typing import Optional
 
 app = FastAPI(title="DataReady AI API")
