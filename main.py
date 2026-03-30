@@ -17,7 +17,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-client = anthropic.Anthropic()
+client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
 SYSTEM_PROMPT = """You are a data quality expert helping non-technical users understand issues in their data.
 Your job is to analyze messy tabular data and provide:
@@ -130,7 +130,7 @@ def get_ai_explanation(column: str, value: str, error_type: str) -> str:
     prompt = error_descriptions.get(error_type, f"Data issue in column {column}: {value}")
 
     message = client.messages.create(
-        model="claude-sonnet-4-20250514",
+        model="claude-sonnet-4-5",
         max_tokens=150,
         system=SYSTEM_PROMPT,
         messages=[{"role": "user", "content": prompt}]
